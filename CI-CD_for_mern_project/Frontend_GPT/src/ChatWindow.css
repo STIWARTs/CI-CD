@@ -1,0 +1,173 @@
+.chatWindow {
+    background-color: #212121;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* navbar */
+
+.navbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #212121;
+    border-bottom: 1px solid #2d2d2d;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar span {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.navbar span:hover {
+    color: #e0e0e0;
+}
+
+.userIconDiv {
+    margin: 0;
+}
+
+.userIcon {
+    background-color: #4a4a4a;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #ffffff;
+}
+
+.userIcon:hover {
+    background-color: #5a5a5a;
+    transform: scale(1.05);
+}
+
+/* chat input */
+.chatInput {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 2rem 2rem;
+    background-color: #212121;
+}
+
+.inputBox {
+    width: 100%;
+    position: relative;
+    max-width: 768px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2d2d2d;
+    border-radius: 12px;
+    border: 1px solid #3d3d3d;
+    transition: all 0.2s ease;
+}
+
+.inputBox:focus-within {
+    border-color: #4a4a4a;
+    box-shadow: 0 0 0 2px rgba(74, 74, 74, 0.2);
+}
+
+input {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    padding: 16px 20px;
+    font-size: 1rem;
+    color: #ffffff;
+    border-radius: 12px;
+    outline: none;
+}
+
+input::placeholder {
+    color: #8e8e8e;
+}
+
+#submit {
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    font-size: 18px;
+    position: absolute;
+    right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #4a4a4a;
+    border-radius: 8px;
+    color: white;
+    transition: all 0.2s ease;
+}
+
+#submit:hover {
+    background-color: #5a5a5a;
+    transform: scale(1.05);
+}
+
+#submit:active {
+    transform: scale(0.95);
+}
+
+.info {
+    font-size: 0.8rem;
+    padding: 0.5rem;
+    color: #b4b4b4;
+}
+
+/* dropdown css */
+
+.dropDown {
+    position: absolute;
+    top: 4rem;
+    right: 2rem;
+    width: 180px;
+    background-color: #323232;
+    padding: 8px;
+    border-radius: 8px;
+    text-align: left;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid #3d3d3d;
+}
+
+.dropDownItem {
+    font-size: 0.9rem;
+    margin: 4px 0;
+    padding: 10px 12px;
+    cursor: pointer;
+    border-radius: 6px;
+    color: #ffffff;
+    transition: all 0.2s ease;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dropDownItem:hover {
+    background-color: #3d3d3d;
+    color: #ffffff;
+}

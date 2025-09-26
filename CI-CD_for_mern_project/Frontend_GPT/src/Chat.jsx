@@ -1,0 +1,100 @@
+import "./Chat.css";
+import React, { useContext, useState, useEffect } from "react";
+import { MyContext } from "./MyContext";
+import ReactMarkdown from "react-markdown";
+import rehypeHighlight from "rehype-highlight";
+import "highlight.js/styles/github-dark.css";
+
+
+function Chat() {
+    const {newChat, prevChats, reply} = useContext(MyContext);
+    const [latestReply, setLatestReply] = useState(null); 
+
+    useEffect(() => { //latestReply separate => typing effect create
+        if(reply === null || reply === undefined) {
+            setLatestReply(null); //prevchat load
+            return;
+        }
+
+        if(!prevChats?.length) return;
+
+        // Ensure reply is a string before calling split
+        if(typeof reply !== 'string') {
+            console.error("Reply is not a string:", reply);
+            setLatestReply("Error: Invalid response format");
+            return;
+        }
+
+        const content = reply.split(" "); //individual words
+
+        let idx = 0;
+        const interval = setInterval(() => {
+            setLatestReply(content.slice(0, idx+1).join(" "));
+
+            idx++;
+            if(idx >= content.length) clearInterval(interval);
+        }, 40);
+
+        return () => clearInterval(interval);
+
+    }, [prevChats, reply]) //dependencies
+
+    return (
+        <>
+            {newChat && (
+                <div className="welcome-message">
+                    <h1>Hey there! Ready to dive in?</h1>
+                    <p>I'm your AI assistant powered by Gemini. Ask me anything!</p>
+                    <p>Try asking me to write code, explain concepts, or help with your projects.</p>
+                </div>
+            )}
+            <div className="chats">
+                {
+                    prevChats?.slice(0, -1).map((chat, idx) => 
+                        <div className={chat.role === "user"? "userDiv" : "gptDiv"} key={idx}>
+                            {
+                                chat.role === "user"? 
+                                <p className="userMessage">{chat.content}</p> : 
+                                <div className="gptMessage">
+                                    <ReactMarkdown rehypePlugins={[rehypeHighlight]}>{chat.content}</ReactMarkdown>
+                                </div>
+                            }
+                        </div>
+                    )
+                }
+                {/* PRINT LATEST REPLY + TYPING EFFECT */}
+                {
+                    prevChats.length > 0  && (
+                        <>
+                            {
+                                latestReply === null ? (
+                                    <div className="gptDiv" key={"non-typing"} >
+                                        <div className="gptMessage">
+                                            <ReactMarkdown rehypePlugins={[rehypeHighlight]}>{prevChats[prevChats.length-1].content}</ReactMarkdown>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="gptDiv" key={"typing"} >
+                                        <div className="gptMessage">
+                                            <ReactMarkdown rehypePlugins={[rehypeHighlight]}>{latestReply}</ReactMarkdown>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                        </>
+                    )
+                }
+            </div> 
+            {/* STATIC DATA */}
+                {/* <div className="userDiv">
+                    <p className="userMessage"> User Message </p>
+                </div>
+                <div className="gptDiv">
+                    <p className="gptMessage">GPT Generated Message</p>
+            </div> */}
+            
+        </>
+    )
+}
+
+export default Chat; 
